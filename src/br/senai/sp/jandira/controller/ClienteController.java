@@ -52,55 +52,42 @@ public class ClienteController {
 
     public void cadastrarCliente(Cliente cliente) throws SQLException {
         Statement statement = connection.createStatement();
-        String queryDelete = "Delete from funcionarios where nome = '" + nome + "'";
-        statement.executeUpdate(queryDelete);
 
-        System.out.println(" funcionário " + nome + " deletado com sucesso!!");
-
-
-
-    }
-
-    public void cadastrarFuncionario(Cliente cliente) throws SQLException {
-        Statement statement = connection.createStatement();
-        String queryCadastro = "INSERT INTO clientes (id_cliente, nome, cargo, departamento, salario)values (" +
-                cliente.getIdFuncionario() + ",'" + cliente.getNome() + "','" + cliente.getCargo() + "','" +
-                cliente.getDepartamento() + "'," + cliente.getSalario() + ")";
+        String queryCadastro = "INSERT INTO clientes (id_cliente, nome, cpf, email, telefone) values (" +
+                cliente.getCpfCliente() + ",'" + cliente.getNome() + "'," + cliente.getCpf() + ",'" +
+                cliente.getEmail() + "'," + cliente.getTelefone() + ")";
 
         statement.executeUpdate(queryCadastro);
-        System.out.println("Funcionário cadastrado com sucesso!!");
-
-
+        System.out.println(" O cliente foi cadastrado!!");
     }
 
-    public void consultarFuncionario(String nome) throws SQLException {
+    public void consultarCliente(int cpf) throws SQLException {
         Statement statement = connection.createStatement();
 
-        String queryConsulta = "select * from funcionarios where nome = '" + nome + "'";
-
+        String queryConsulta = "SELECT * FROM clientes WHERE cpf = '" + cpf + "'";
         ResultSet resultSet = statement.executeQuery(queryConsulta);
 
         List<Cliente> listConsulta = new ArrayList<>();
 
-
         while (resultSet.next()) {
             Cliente cliente = new Cliente();
-            cliente.setIdFuncionario(resultSet.getInt("id_funcionario"));
+
+            cliente.setCpfCliente(resultSet.getInt("id_cliente"));
             cliente.setNome(resultSet.getString("nome"));
-            cliente.setCargo(resultSet.getString("cargo"));
-            cliente.setDepartamento(resultSet.getString("departamento"));
-            cliente.setSalario(resultSet.getDouble("salario"));
+            cliente.setCpf(resultSet.getInt("cpf"));
+            cliente.setEmail(resultSet.getString("email"));
+            cliente.setTelefone(resultSet.getInt("telefone"));
 
             listConsulta.add(cliente);
         }
 
         for (Cliente cliente : listConsulta) {
-            System.out.println(cliente.getIdFuncionario());
+            System.out.println(cliente.getCpfCliente());
             System.out.println(cliente.getNome());
-            System.out.println(cliente.getCargo());
-            System.out.println(cliente.getDepartamento());
-            System.out.println(cliente.getSalario());
-            System.out.println("--------------------------------");
+            System.out.println(cliente.getCpf());
+            System.out.println(cliente.getEmail());
+            System.out.println(cliente.getTelefone());
+            System.out.println("/--------------------------------/");
 
         }
     }
