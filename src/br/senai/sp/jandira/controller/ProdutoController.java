@@ -1,7 +1,7 @@
-package br.senai.sp.jandira.Controller;
+package br.senai.sp.jandira.controller;
 
-import br.senai.sp.jandira.Model.Conexao;
-import br.senai.sp.jandira.Model.Produtos;
+import br.senai.sp.jandira.model.Conexao;
+import br.senai.sp.jandira.model.Produtos;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ public class ProdutoController {
     Conexao conexao = new Conexao();
     Connection connection = conexao.getConnection();
 
-    public void listaDeProdutos() throws SQLException {
+    public void listarProdutos() throws SQLException {
 
         Statement statement = connection.createStatement();
         String list = "SELECT * FROM produtos";
@@ -39,7 +39,7 @@ public class ProdutoController {
         }
     }
 
-    public void alterarProduto(int qtdEstoque, String nomeDoProduto) throws SQLException {
+    public void editarProduto(int qtdEstoque, String nomeDoProduto) throws SQLException {
         Statement statement = connection.createStatement();
         String update = "UPDATE produtos SET quantidade_estoque" + qtdEstoque + "WHERE nome_produto = " + nomeDoProduto + "'";
 
@@ -56,6 +56,15 @@ public class ProdutoController {
 
         statement.executeUpdate(cadastro);
         System.out.println("Produto cadastrado com êxito!!");
+    }
+
+    public void deletarProduto(String nomeProduto) throws SQLException {
+        Statement statement = connection.createStatement();
+
+        String queryDelete = "DELETE FROM produtos WHERE nome_produto='" + nomeProduto + "'";
+
+        statement.executeUpdate(queryDelete);
+        System.out.println("Produto " + nomeProduto + " deletado com sucesso!!");
     }
 
     public void consultarProduto(String nomeDoProduto) throws SQLException {
