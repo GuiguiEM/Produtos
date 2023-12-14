@@ -9,7 +9,7 @@ public class Cliente {
 
     private int cpfCliente = 0;
 
-    public void cadastrarFuncionario(){
+    public void cadastrarCliente(){
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Informe o nome: ");
