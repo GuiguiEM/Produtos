@@ -11,7 +11,7 @@ public class Conexao {
 
     public Conexao() {
         this.servidor = "localhost";
-        this.banco = "db_empresa";
+        this.banco = "produtos";
         this.usuario = "root";
         this.senha = "bcd127";
     }
