@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.Model;
+package br.senai.sp.jandira.model;
 
 import java.util.Scanner;
 
@@ -9,7 +9,7 @@ public class Produtos {
     private double valor;
     private int id = 0;
 
-    public void cadastroDeProduto(int idProduto) {
+    public void cadastroDeProdutos() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Informe o nome do produto: ");
