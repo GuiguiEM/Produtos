@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.controller;
 
 import br.senai.sp.jandira.model.Cliente;
+import br.senai.sp.jandira.model.Produtos;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -11,60 +12,92 @@ public class Menu {
         boolean continuar = true;
 
         while (continuar){
-            System.out.println(" ------- bem vindo ----------");
-            System.out.println("          M E N U            ");
-            System.out.println("1- Listar Funcionarios       ");
-            System.out.println("2- Cadastrar Funcionarios    ");
-            System.out.println("3- Editar Funcionarios       ");
-            System.out.println("4- Deletar Funcionarios      ");
-            System.out.println("5- Pesquisar Funcionarios    ");
-            System.out.println("6- Sair                      ");
+            System.out.println("/----------- Bem Vindo -----------/");
+            System.out.println("-----------------------------------");
+            System.out.println("1- Listar Clientes");
+            System.out.println("2- Cadastrar Cliente");
+            System.out.println("3- Deletar Cliente por CPF");
+            System.out.println("4- Pesquisar Cliente por CPF");
+            System.out.println("5- Listar Produtos");
+            System.out.println("6- Cadastrar Produto");
+            System.out.println("7- Editar Produto");
+            System.out.println("8- Deletar Produto");
+            System.out.println("9- Pesquisar Produto");
+            System.out.println("10- Sair");
+            System.out.println("-----------------------------------");
+            System.out.print("\nOpção: ");
 
             Scanner scanner = new Scanner(System.in);
-            ClienteController funcionario = new ClienteController();
-
 
             int userOption = scanner.nextInt();
             scanner.nextLine();
 
+            ClienteController clienteController = new ClienteController();
+            ProdutoController produtoController = new ProdutoController();
+
             switch (userOption){
-                case 1 :
-                    funcionario.listarFuncionario();
+                case 1:
+                    clienteController.listarClientes();
                     break;
-                case 2 :
+
+                case 2:
                     Cliente newCliente = new Cliente();
-                    newCliente.cadastrarFuncionario();
+                    newCliente.cadastrarCliente();
 
-                    funcionario.cadastrarFuncionario(newCliente);
+                    clienteController.cadastrarCliente(newCliente);
                     break;
 
-                case 3 :
-                    System.out.println("Informe o nome que deseja atualizar: ");
-                    String nomeUpdate  = scanner.nextLine();
-                    System.out.println("Informe o novo salário");
-                    Double newSalario = scanner.nextDouble();
+                case 3:
+                    System.out.print("Informe o CPF do cliente que deseja deletar: ");
+                    int cpfDelete = scanner.nextInt();
+                    scanner.nextLine();
+                    clienteController.deletarCliente(cpfDelete);
+                    break;
+
+                case 4:
+                    System.out.print("Informe o CPF do cliente que deseja pesquisar: ");
+                    int cpfConsulta = scanner.nextInt();
+                    scanner.nextLine();
+                    clienteController.consultarCliente(cpfConsulta);
+                    break;
+
+                case 5:
+                    produtoController.listarProdutos();
+                    break;
+
+                case 6:
+                    Produtos newProduto = new Produtos();
+                    newProduto.cadastroDeProdutos();
+
+                    produtoController.cadastrarNovoProduto(newProduto);
+                    break;
+
+                case 7:
+                    System.out.print("Informe o nome do produto que deseja editar: ");
+                    String nomeProdutoUpdate = scanner.nextLine();
+                    System.out.print("Informe a nova quantidade em estoque: ");
+                    int newQuantidadeEstoque = scanner.nextInt();
                     scanner.nextLine();
 
-                    funcionario.editarFuncionario(nomeUpdate, newSalario);
+                    produtoController.editarProduto(newQuantidadeEstoque, nomeProdutoUpdate);
                     break;
 
-                case 4 :
-                    System.out.println("Informe o nome que deseja excluir: ");
-                    String nome = scanner.nextLine();
-                    funcionario.deletarFuncionario(nome);
+                case 8:
+                    System.out.print("Informe o nome do produto que deseja deletar: ");
+                    String nomeProdutoDelete = scanner.nextLine();
+                    produtoController.deletarProduto(nomeProdutoDelete);
                     break;
 
-                case 5 :
-                    System.out.println("Informe o nome que deseja pesquisar: ");
-                    String nomeConsulta = scanner.nextLine();
-                    funcionario.consultarFuncionario(nomeConsulta);
+                case 9:
+                    System.out.print("Informe o nome do produto que deseja pesquisar: ");
+                    String nomeProdutoConsulta = scanner.nextLine();
+                    produtoController.consultarProduto(nomeProdutoConsulta);
                     break;
 
-                case 6 :
+                case 10:
                     continuar = false;
                     break;
             }
         }
     }
-
 }
